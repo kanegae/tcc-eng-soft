@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 public class Projeto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int codigo;
+	private Long codigo;
 	private String nome;
 	private String descricao;
 	@ManyToOne
@@ -26,11 +26,11 @@ public class Projeto {
 	@OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL)
 	private List<Sprint> sprints;
 
-	public int getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 

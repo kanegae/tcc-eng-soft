@@ -13,18 +13,18 @@ import javax.persistence.OneToMany;
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int codigo;
+	private Long codigo;
 	private String nome;
 	private String email;
 	private String senha;
 	@OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
 	private List<Projeto> projetos;
 
-	public int getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 

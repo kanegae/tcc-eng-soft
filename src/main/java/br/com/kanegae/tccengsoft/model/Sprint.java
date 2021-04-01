@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 public class Sprint {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int codigo;
+	private Long codigo;
 	private String objetivo;
 	private String descricao;
 	private Calendar dataInicial;
@@ -27,11 +27,11 @@ public class Sprint {
 	@OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL)
 	private List<Tarefa> sprintBacklog;
 
-	public int getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 

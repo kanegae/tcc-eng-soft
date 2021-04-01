@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 public class Tarefa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int codigo;
+	private Long codigo;
 	private String titulo;
 	private String descricao;
 	@Enumerated(EnumType.STRING)
@@ -25,11 +25,11 @@ public class Tarefa {
 	@JoinColumn(name = "sprint_codigo", referencedColumnName = "codigo", nullable = true)
 	private Sprint sprint;
 
-	public int getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 
