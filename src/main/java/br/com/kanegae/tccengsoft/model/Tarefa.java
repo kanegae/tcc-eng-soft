@@ -17,6 +17,8 @@ public class Tarefa {
 	private String titulo;
 	private String descricao;
 	@Enumerated(EnumType.STRING)
+	private Prioridade prioridade;
+	@Enumerated(EnumType.STRING)
 	private Status status;
 	@ManyToOne
 	@JoinColumn(name = "projeto_codigo", referencedColumnName = "codigo", nullable = false)
@@ -47,6 +49,14 @@ public class Tarefa {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public Prioridade getPrioridade() {
+		return prioridade;
+	}
+
+	public void setPrioridade(Prioridade prioridade) {
+		this.prioridade = prioridade;
 	}
 
 	public Status getStatus() {
