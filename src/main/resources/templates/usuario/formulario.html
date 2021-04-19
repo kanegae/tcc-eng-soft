@@ -10,41 +10,44 @@
 
     <title>Skrum</title>
   </head>
-  <body class="container">
+  <body>
   	
-	<div th:replace="/menu.html">...</div>
 	<div th:replace="/cabecalho.html">...</div>
     
-    <div style="margin-top: 20px; margin-bottom: 30px">
-       	<h2>Cadastro de Usuários</h2>
-   	</div>
+    <main class="container">
     
-    <form th:action="@{/usuario}" th:object="${usuario}" method="POST">
-		<fieldset>
-			<label for="codigo" class="form-label">Código</label>
-			<input type="text" readonly="readonly" th:field="*{codigo}" id="codigo" class="form-control" placeholder="0" />
-		</fieldset>
-		
-		<fieldset>
-			<label for="nome" class="form-label">Nome</label>
-			<input type="text" th:field="*{nome}" id="nome" class="form-control" placeholder="Nome" />
-		</fieldset>
-		
-		<fieldset>
-			<label for="email" class="form-label">Email</label>
-			<input type="text" th:field="*{email}" id="email" class="form-control" placeholder="Email" />
-		</fieldset>
-		
-		<fieldset>
-			<label for="senha" class="form-label">Senha</label>
-			<input type="password" th:field="*{senha}" id="senha" class="form-control" placeholder="Senha" />
-		</fieldset>
-		
-		<br/>
-		
-		<button type="submit" class="btn btn-primary">Salvar</button>
-		<a class="btn btn-secondary" href="/usuario" role="button">Cancelar</a>
-	</form>
+	    <div style="margin-top: 20px; margin-bottom: 30px">
+	       	<h2>Cadastro de Usuários</h2>
+	   	</div>
+	    
+	    <form th:action="@{/usuario}" th:object="${usuario}" method="POST">
+			<fieldset>
+				<label for="codigo" class="form-label">Código</label>
+				<input type="text" readonly="readonly" th:field="*{codigo}" id="codigo" class="form-control" placeholder="0" />
+			</fieldset>
+			
+			<fieldset>
+				<label for="nome" class="form-label">Nome</label>
+				<input type="text" th:field="*{nome}" id="nome" class="form-control" placeholder="Nome" />
+			</fieldset>
+			
+			<fieldset>
+				<label for="email" class="form-label">Email</label>
+				<input type="text" th:field="*{email}" id="email" class="form-control" placeholder="Email" />
+			</fieldset>
+			
+			<fieldset>
+				<label for="senha" class="form-label">Senha</label>
+				<input type="password" th:field="*{senha}" id="senha" class="form-control" placeholder="Senha" />
+			</fieldset>
+			
+			<br/>
+			
+			<button type="submit" class="btn btn-primary">Salvar</button>
+			<a class="btn btn-secondary" href="/usuario" role="button">Cancelar</a>
+		</form>
+	
+	</main>
 	
 	<div th:replace="/rodape.html">...</div>
 		
