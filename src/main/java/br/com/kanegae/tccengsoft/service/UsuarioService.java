@@ -4,18 +4,25 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.kanegae.tccengsoft.model.Usuario;
 import br.com.kanegae.tccengsoft.repository.UsuarioRepository;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
 	private UsuarioRepository repository;
-
 	@Autowired
-	public UsuarioService(UsuarioRepository repository) {
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	public UsuarioService(UsuarioRepository repository, PasswordEncoder passwordEncoder) {
 		this.repository = repository;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	public List<Usuario> listar() {
@@ -23,6 +30,7 @@ public class UsuarioService {
 	}
 
 	public void gravar(Usuario usuario) {
+		usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 		repository.save(usuario);
 	}
 	
@@ -34,5 +42,16 @@ public class UsuarioService {
 	public Usuario findById(Long codigo) {
 		Optional<Usuario> usuario = repository.findById(codigo);
 		return usuario.get();
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Usuario usuario = repository.findByEmail(email);
+		if (usuario == null) {
+            throw new UsernameNotFoundException("Dados inválidos.");
+		}
+		// TODO gravar senhas já criptografadas
+		usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+		return usuario;
 	}
 }
