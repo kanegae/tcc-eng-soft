@@ -45,6 +45,15 @@ public class UsuarioController {
 		
 		return modelAndView;
 	}
+	
+	@GetMapping("/cadastro")
+	public ModelAndView cadastro(Model model) {
+		ModelAndView modelAndView = new ModelAndView("usuario/cadastro");
+		
+		model.addAttribute("usuario", new Usuario());
+		
+		return modelAndView;
+	}
 
 	@PostMapping
 	public ModelAndView gravar(@ModelAttribute("usuario") Usuario usuario) {
@@ -52,6 +61,15 @@ public class UsuarioController {
 
 		// TODO verificar redirect
 		ModelAndView modelAndView = new ModelAndView("redirect:usuario");
+		return modelAndView;
+	}
+	
+	@PostMapping("/cadastrar")
+	public ModelAndView cadastrar(@ModelAttribute("usuario") Usuario usuario) {
+		service.gravar(usuario);
+
+		// TODO verificar redirect
+		ModelAndView modelAndView = new ModelAndView("redirect:/login");
 		return modelAndView;
 	}
 	
@@ -78,12 +96,12 @@ public class UsuarioController {
 	}
 	
 	// TODO revisar método
-		@PostMapping("/{codigo}/excluir")
-		public ModelAndView excluir(@PathVariable("codigo") Long codigo) {
-			service.excluir(codigo);
+	@PostMapping("/{codigo}/excluir")
+	public ModelAndView excluir(@PathVariable("codigo") Long codigo) {
+		service.excluir(codigo);
 
-			// TODO verificar redirect
-			ModelAndView modelAndView = new ModelAndView("redirect:/usuario");
-			return modelAndView;
-		}
+		// TODO verificar redirect
+		ModelAndView modelAndView = new ModelAndView("redirect:/usuario");
+		return modelAndView;
+	}
 }
