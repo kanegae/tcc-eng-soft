@@ -27,16 +27,20 @@
         <p class="alert alert-info" role="alert" th:if="${param.logout}">
             Você foi desconectado.
         </p>
+        
+        <p class="alert alert-info" role="alert" th:if="${param.signup}">
+            Informe seus dados de cadastro.
+        </p>
 
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{/login}" method="POST">
             <fieldset>
             	<label for="username" class="form-label">E-mail</label>
-            	<input type="email" id="username" name="username" class="form-control" placeholder="email@provedor.com.br"/>
+            	<input type="email" name="username" class="form-control" placeholder="email@provedor.com.br"/>
             </fieldset>
             
             <fieldset>
             	<label for="password" class="form-label">Senha</label>
-            	<input type="password" id="password" name="password" class="form-control" placeholder="Senha"/>
+            	<input type="password" name="password" class="form-control" placeholder="Senha"/>
             </fieldset>
             
             <br/>
