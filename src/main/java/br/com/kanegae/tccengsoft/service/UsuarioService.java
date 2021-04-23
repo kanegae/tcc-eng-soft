@@ -30,7 +30,9 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	public void gravar(Usuario usuario) {
-		usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+		if(!usuario.getSenha().equals("")) {
+			usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+		}
 		repository.save(usuario);
 	}
 	
@@ -50,8 +52,6 @@ public class UsuarioService implements UserDetailsService {
 		if (usuario == null) {
             throw new UsernameNotFoundException("Dados inválidos.");
 		}
-		// TODO gravar senhas já criptografadas
-		usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 		return usuario;
 	}
 }
