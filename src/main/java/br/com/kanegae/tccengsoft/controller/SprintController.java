@@ -31,8 +31,8 @@ public class SprintController {
 	public ModelAndView listar(Model model) {
 		ModelAndView modelAndView = new ModelAndView("sprint/lista");
 
-		List<Sprint> projetos = service.listar();
-		model.addAttribute("projetos", projetos);
+		List<Sprint> sprints = service.listar();
+		model.addAttribute("sprints", sprints);
 
 		return modelAndView;
 	}
@@ -47,7 +47,7 @@ public class SprintController {
 	}
 
 	@PostMapping
-	public ModelAndView gravar(@ModelAttribute("projeto") Sprint sprint) {
+	public ModelAndView gravar(@ModelAttribute("sprint") Sprint sprint) {
 		service.gravar(sprint);
 
 		// TODO verificar redirect

@@ -17,10 +17,10 @@
 	<main class="container">
 	
 	    <div style="margin-top: 20px; margin-bottom: 30px">
-	       	<h2>Listagem de Sprints</h2>
+	       	<h2>Minhas Sprints</h2>
 	   	</div>
 	   	
-	   	<div class="float-right">
+	   	<div class="float-end">
 	   		<a class="btn btn-primary" href="/sprint/formulario" role="button">+ Nova Sprint</a>
 	    </div>
 	    
@@ -28,24 +28,28 @@
 		    <thead>
 		        <tr>
 		            <th> Código </th>
-		            <th> Nome </th>
+		            <th> Objetivo </th>
 		            <th> Descrição </th>
+		            <th> Data Inicial </th>
+		            <th> Data Final </th>
 		            <th colspan="2"> Ações </th>
 		        </tr>
 		    </thead>
 		    <tbody>
-				<tr th:if="${projetos.empty}">
-		            <td colspan="5"> Ainda não existem sprints cadastradas. </td>
+				<tr th:if="${sprints.empty}">
+		            <td colspan="7"> Ainda não existem sprints cadastradas. </td>
 		        </tr>
-		        <tr th:each="projeto : ${projeto}">
-		            <td><span th:text="${projeto.codigo}"> Código </span></td>
-		            <td><span th:text="${projeto.nome}"> Nome </span></td>
-		            <td><span th:text="${projeto.descricao}"> Email </span></td>
+		        <tr th:each="sprint : ${sprints}">
+		            <td><span th:text="${sprint.codigo}"> Código </span></td>
+		            <td><span th:text="${sprint.objetivo}"> Objetivo </span></td>
+		            <td><span th:text="${sprint.descricao}"> Descrição </span></td>
+		            <td><span th:text="${sprint.dataInicial}"> Data Inicial </span></td>
+		            <td><span th:text="${sprint.dataFinal}"> Data Final </span></td>
 		            <td>
-		            	<a class="btn btn-success" th:href="@{/projeto/{id}(id=${projeto.codigo})}"> Editar </a>
+		            	<a class="btn btn-success" th:href="@{/sprint/{id}(id=${sprint.codigo})}"> Editar </a>
 	            	</td>
 		            <td>
-		            	<form method="POST" th:action="@{/projeto/{id}/excluir(id=${projeto.codigo})}">
+		            	<form method="POST" th:action="@{/sprint/{id}/excluir(id=${sprint.codigo})}">
 	            			<button type="submit" class="btn btn-danger"> Excluir </button>
 	            		</form>
 	            	</td>

@@ -32,7 +32,7 @@ public class TarefaController {
 		ModelAndView modelAndView = new ModelAndView("tarefa/lista");
 
 		List<Tarefa> tarefas = service.listar();
-		model.addAttribute("projetos", tarefas);
+		model.addAttribute("tarefas", tarefas);
 
 		return modelAndView;
 	}
@@ -47,17 +47,17 @@ public class TarefaController {
 	}
 
 	@PostMapping
-	public ModelAndView gravar(@ModelAttribute("projeto") Tarefa tarefa) {
+	public ModelAndView gravar(@ModelAttribute("tarefa") Tarefa tarefa) {
 		service.gravar(tarefa);
 
 		// TODO verificar redirect
-		ModelAndView modelAndView = new ModelAndView("redirect:projeto");
+		ModelAndView modelAndView = new ModelAndView("redirect:tarefa");
 		return modelAndView;
 	}
 	
 	@GetMapping("/{codigo}")
 	public ModelAndView exibir(@PathVariable("codigo") Long codigo, Model model) {
-		ModelAndView modelAndView = new ModelAndView("projeto/formulario");
+		ModelAndView modelAndView = new ModelAndView("tarefa/formulario");
 		
 		Tarefa tarefa = service.findById(codigo);
 		

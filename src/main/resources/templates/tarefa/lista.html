@@ -17,10 +17,10 @@
 	<main class="container">
 	
 	    <div style="margin-top: 20px; margin-bottom: 30px">
-	       	<h2>Listagem de Tarefas</h2>
+	       	<h2>Minhas Tarefas</h2>
 	   	</div>
 	   	
-	   	<div class="float-right">
+	   	<div class="float-end">
 	   		<a class="btn btn-primary" href="/tarefa/formulario" role="button">+ Nova Tarefa</a>
 	    </div>
 	    
@@ -28,24 +28,24 @@
 		    <thead>
 		        <tr>
 		            <th> Código </th>
-		            <th> Nome </th>
+		            <th> Título </th>
 		            <th> Descrição </th>
 		            <th colspan="2"> Ações </th>
 		        </tr>
 		    </thead>
 		    <tbody>
-				<tr th:if="${projetos.empty}">
+				<tr th:if="${tarefas.empty}">
 		            <td colspan="5"> Ainda não existem tarefas cadastradas. </td>
 		        </tr>
-		        <tr th:each="projeto : ${projeto}">
-		            <td><span th:text="${projeto.codigo}"> Código </span></td>
-		            <td><span th:text="${projeto.nome}"> Nome </span></td>
-		            <td><span th:text="${projeto.descricao}"> Email </span></td>
+		        <tr th:each="tarefa : ${tarefas}">
+		            <td><span th:text="${tarefa.codigo}"> Código </span></td>
+		            <td><span th:text="${tarefa.nome}"> Título </span></td>
+		            <td><span th:text="${tarefa.descricao}"> Descrição </span></td>
 		            <td>
-		            	<a class="btn btn-success" th:href="@{/projeto/{id}(id=${projeto.codigo})}"> Editar </a>
+		            	<a class="btn btn-success" th:href="@{/tarefa/{id}(id=${tarefa.codigo})}"> Editar </a>
 	            	</td>
 		            <td>
-		            	<form method="POST" th:action="@{/projeto/{id}/excluir(id=${projeto.codigo})}">
+		            	<form method="POST" th:action="@{/tarefa/{id}/excluir(id=${tarefa.codigo})}">
 	            			<button type="submit" class="btn btn-danger"> Excluir </button>
 	            		</form>
 	            	</td>

@@ -17,10 +17,10 @@
 	<main class="container">
 	
 	    <div style="margin-top: 20px; margin-bottom: 30px">
-	       	<h2>Listagem de Usuários</h2>
+	       	<h2>Usuários do Sistema</h2>
 	   	</div>
 	   	
-	   	<div class="float-right">
+	   	<div class="float-end">
 	   		<a class="btn btn-primary" href="/usuario/formulario" role="button">+ Novo Usuário</a>
 	    </div>
 	    
@@ -29,20 +29,18 @@
 		        <tr>
 		            <th> Código </th>
 		            <th> Nome </th>
-		            <th> Email </th>
-		            <th> Senha </th>
+		            <th> E-mail </th>
 		            <th colspan="2"> Ações </th>
 		        </tr>
 		    </thead>
 		    <tbody>
 				<tr th:if="${usuarios.empty}">
-		            <td colspan="6"> Ainda não existem usuários cadastrados. </td>
+		            <td colspan="5"> Ainda não existem usuários cadastrados. </td>
 		        </tr>
 		        <tr th:each="usuario : ${usuarios}">
 		            <td><span th:text="${usuario.codigo}"> Código </span></td>
 		            <td><span th:text="${usuario.nome}"> Nome </span></td>
-		            <td><span th:text="${usuario.email}"> Email </span></td>
-		            <td><span th:text="${usuario.senha}"> Senha </span></td>
+		            <td><span th:text="${usuario.email}"> E-mail </span></td>
 		            <td>
 		            	<a class="btn btn-success" th:href="@{/usuario/{id}(id=${usuario.codigo})}"> Editar </a>
 	            	</td>

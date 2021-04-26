@@ -17,10 +17,10 @@
 	<main class="container">
 	
 	    <div style="margin-top: 20px; margin-bottom: 30px">
-	       	<h2>Listagem de Projetos</h2>
+	       	<h2>Meus Projetos</h2>
 	   	</div>
 	   	
-	   	<div class="float-right">
+	   	<div class="float-end">
 	   		<a class="btn btn-primary" href="/projeto/formulario" role="button">+ Novo Projeto</a>
 	    </div>
 	    
@@ -37,7 +37,7 @@
 				<tr th:if="${projetos.empty}">
 		            <td colspan="5"> Ainda não existem projetos cadastrados. </td>
 		        </tr>
-		        <tr th:each="projeto : ${projeto}">
+		        <tr th:each="projeto : ${projetos}">
 		            <td><span th:text="${projeto.codigo}"> Código </span></td>
 		            <td><span th:text="${projeto.nome}"> Nome </span></td>
 		            <td><span th:text="${projeto.descricao}"> Email </span></td>

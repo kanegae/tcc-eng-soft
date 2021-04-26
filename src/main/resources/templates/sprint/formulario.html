@@ -17,7 +17,7 @@
     <main class="container">
     
 	    <div style="margin-top: 20px; margin-bottom: 30px">
-	       	<h2>Cadastro de Sprints</h2>
+	       	<h2>Sprint</h2>
 	   	</div>
 	    
 	    <form th:action="@{/sprint}" th:object="${sprint}" method="POST">
@@ -38,12 +38,12 @@
 			
 			<fieldset>
 				<label for="dataInicial" class="form-label">Data Inicial</label>
-				<input type="text" th:field="*{dataInicial}" id="dataInicial" class="form-control" placeholder="Data Inicial" />
+				<input type="date" th:field="*{dataInicial}" id="dataInicial" class="form-control" placeholder="Data Inicial" />
 			</fieldset>
 			
 			<fieldset>
 				<label for="dataFinal" class="form-label">Data Final</label>
-				<input type="text" th:field="*{dataFinal}" id="dataFinal" class="form-control" placeholder="Data Final" />
+				<input type="date" th:field="*{dataFinal}" id="dataFinal" class="form-control" placeholder="Data Final" />
 			</fieldset>
 			
 			<br/>
