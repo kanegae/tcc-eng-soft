@@ -3,6 +3,8 @@ package br.com.kanegae.tccengsoft.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,9 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.kanegae.tccengsoft.model.Projeto;
 import br.com.kanegae.tccengsoft.model.Tarefa;
+import br.com.kanegae.tccengsoft.model.Usuario;
 import br.com.kanegae.tccengsoft.service.TarefaService;
 
 @Controller
@@ -27,13 +32,24 @@ public class TarefaController {
 		this.service = service;
 	}
 
+	private Usuario getUsuarioAutenticado() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return (Usuario) authentication.getPrincipal();
+	}
+	
 	@GetMapping
-	public ModelAndView listar(Model model) {
+	public ModelAndView listar(Model model, @RequestParam(name = "projeto", defaultValue = "0", required = false) String projeto) {
 		ModelAndView modelAndView = new ModelAndView("tarefa/lista");
-
-		List<Tarefa> tarefas = service.listar();
+		
+		Long projetoSelecionado = Long.parseLong(projeto);
+		model.addAttribute("projetoSelecionado", projetoSelecionado);
+		
+		List<Tarefa> tarefas = service.listar(projetoSelecionado, getUsuarioAutenticado());
 		model.addAttribute("tarefas", tarefas);
 
+		List<Projeto> projetos = service.listarProjetosDoUsuario(getUsuarioAutenticado());
+		model.addAttribute("projetos", projetos);
+		
 		return modelAndView;
 	}
 

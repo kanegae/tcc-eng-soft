@@ -20,8 +20,23 @@
 	       	<h2>Minhas Tarefas</h2>
 	   	</div>
 	   	
-	   	<div class="float-end">
-	   		<a class="btn btn-primary" href="/tarefa/formulario" role="button">+ Nova Tarefa</a>
+	   	<div class="float-end d-inline-flex align-items-center">
+	   		<fieldset class="d-inline-flex align-items-center px-1">
+		   		<label for="projetos" class="control-label px-1">Projeto:</label>
+		   		<select name="projetos" class="form-select" onChange="setProjeto(this.value)">
+		   			<option value="0">Todos</option>
+				    <option 
+				    	th:each="projeto : ${projetos}"
+				    	th:value="${projeto.codigo}"
+				    	th:text="${projeto.nome}" 
+						th:selected="${projeto.codigo} == *{projetoSelecionado}">
+					</option>
+				</select>
+	   		</fieldset>
+	   		
+	   		<div>
+	   			<a class="btn btn-primary" href="/tarefa/formulario" role="button">+ Nova Tarefa</a>
+	    	</div>
 	    </div>
 	    
 	    <table class="table table-striped table-hover">
@@ -39,7 +54,7 @@
 		        </tr>
 		        <tr th:each="tarefa : ${tarefas}">
 		            <td><span th:text="${tarefa.codigo}"> Código </span></td>
-		            <td><span th:text="${tarefa.nome}"> Título </span></td>
+		            <td><span th:text="${tarefa.titulo}"> Título </span></td>
 		            <td><span th:text="${tarefa.descricao}"> Descrição </span></td>
 		            <td>
 		            	<a class="btn btn-success" th:href="@{/tarefa/{id}(id=${tarefa.codigo})}"> Editar </a>

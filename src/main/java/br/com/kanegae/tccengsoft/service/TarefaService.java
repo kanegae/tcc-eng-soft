@@ -6,33 +6,50 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.kanegae.tccengsoft.model.Projeto;
 import br.com.kanegae.tccengsoft.model.Tarefa;
+import br.com.kanegae.tccengsoft.model.Usuario;
+import br.com.kanegae.tccengsoft.repository.ProjetoRepository;
 import br.com.kanegae.tccengsoft.repository.TarefaRepository;
 
 @Service
 public class TarefaService {
-	private TarefaRepository repository;
+	private TarefaRepository tarefaRepository;
+	private ProjetoRepository projetoRepository;
 
 	@Autowired
-	public TarefaService(TarefaRepository repository) {
-		this.repository = repository;
+	public TarefaService(TarefaRepository tarefaRepository, ProjetoRepository projetoRepository) {
+		this.tarefaRepository = tarefaRepository;
+		this.projetoRepository = projetoRepository;
+	}
+	
+	public List<Tarefa> listar() {
+		return tarefaRepository.findAll();
 	}
 
-	public List<Tarefa> listar() {
-		return repository.findAll();
+	public List<Tarefa> listar(Long projetoSelecionado, Usuario usuarioAutenticado) {
+		if(projetoSelecionado != 0) {
+			return tarefaRepository.findAllByProjetoCodigo(projetoSelecionado);
+		} else {
+			return tarefaRepository.findAllByProjetoDono(usuarioAutenticado);
+		}
+	}
+	
+	public List<Projeto> listarProjetosDoUsuario(Usuario usuarioAutenticado) {
+		return projetoRepository.findAllByDono(usuarioAutenticado);
 	}
 
 	public void gravar(Tarefa tarefa) {
-		repository.save(tarefa);
+		tarefaRepository.save(tarefa);
 	}
 	
 	public void excluir(Long codigo) {
-		repository.deleteById(codigo);
+		tarefaRepository.deleteById(codigo);
 	}
 	
 	// TODO verificar Optional
 	public Tarefa findById(Long codigo) {
-		Optional<Tarefa> tarefa = repository.findById(codigo);
+		Optional<Tarefa> tarefa = tarefaRepository.findById(codigo);
 		return tarefa.get();
 	}
 }
