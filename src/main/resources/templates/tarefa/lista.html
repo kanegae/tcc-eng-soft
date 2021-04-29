@@ -45,17 +45,23 @@
 		            <th> Código </th>
 		            <th> Título </th>
 		            <th> Descrição </th>
+		            <th> Prioridade </th>
+		            <th> Status </th>
+		            <th> Projeto </th>
 		            <th colspan="2"> Ações </th>
 		        </tr>
 		    </thead>
 		    <tbody>
 				<tr th:if="${tarefas.empty}">
-		            <td colspan="5"> Ainda não existem tarefas cadastradas. </td>
+		            <td colspan="8"> Ainda não existem tarefas cadastradas. </td>
 		        </tr>
 		        <tr th:each="tarefa : ${tarefas}">
 		            <td><span th:text="${tarefa.codigo}"> Código </span></td>
 		            <td><span th:text="${tarefa.titulo}"> Título </span></td>
 		            <td><span th:text="${tarefa.descricao}"> Descrição </span></td>
+		            <td><span th:text="${tarefa.prioridade.displayValue}"> Prioridade </span></td>
+		            <td><span th:text="${tarefa.status.displayValue}"> Status </span></td>
+		            <td><span th:text="${tarefa.projeto.nome}"> Projeto </span></td>
 		            <td>
 		            	<a class="btn btn-success" th:href="@{/tarefa/{id}(id=${tarefa.codigo})}"> Editar </a>
 	            	</td>

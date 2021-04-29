@@ -36,6 +36,40 @@
 				<input type="text" th:field="*{descricao}" id="descricao" class="form-control" placeholder="Descrição" />
 			</fieldset>
 			
+			<fieldset>
+				<label for="prioridade" class="form-label">Prioridade</label>
+				<select th:field="*{prioridade}" id="prioridade" class="form-select">
+				    <option
+				    	th:each="prioridadeOpt : ${T(br.com.kanegae.tccengsoft.model.Prioridade).values()}" 
+				        th:value="${prioridadeOpt}"
+				        th:text="${prioridadeOpt.displayValue}">
+			        </option>
+				</select>
+			</fieldset>
+			
+			<fieldset>
+				<label for="status" class="form-label">Status</label>
+				<select th:field="*{status}" id="status" class="form-select">
+				    <option
+				    	th:each="statusOpt : ${T(br.com.kanegae.tccengsoft.model.Status).values()}" 
+				        th:value="${statusOpt}"
+				        th:text="${statusOpt.displayValue}">
+			        </option>
+				</select>
+			</fieldset>
+			
+			<fieldset>
+				<label for="projeto" class="form-label">Projeto</label>
+				<select th:field="*{projeto}" id="projeto" class="form-select">
+				    <option
+				    	th:each="projeto : ${projetos}" 
+				        th:value="${projeto.codigo}"
+				        th:text="${projeto.nome}"
+				        th:selected="${projeto == tarefa.projeto}">
+			        </option>
+				</select>
+			</fieldset>
+			
 			<br/>
 			
 			<button type="submit" class="btn btn-primary">Salvar</button>

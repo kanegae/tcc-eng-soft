@@ -59,6 +59,9 @@ public class TarefaController {
 		
 		model.addAttribute("tarefa", new Tarefa());
 		
+		List<Projeto> projetos = service.listarProjetosDoUsuario(getUsuarioAutenticado());
+		model.addAttribute("projetos", projetos);
+		
 		return modelAndView;
 	}
 
@@ -74,6 +77,9 @@ public class TarefaController {
 	@GetMapping("/{codigo}")
 	public ModelAndView exibir(@PathVariable("codigo") Long codigo, Model model) {
 		ModelAndView modelAndView = new ModelAndView("tarefa/formulario");
+		
+		List<Projeto> projetos = service.listarProjetosDoUsuario(getUsuarioAutenticado());
+		model.addAttribute("projetos", projetos);
 		
 		Tarefa tarefa = service.findById(codigo);
 		
