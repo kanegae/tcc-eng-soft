@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.kanegae.tccengsoft.model.Projeto;
+import br.com.kanegae.tccengsoft.model.Usuario;
 import br.com.kanegae.tccengsoft.repository.ProjetoRepository;
 
 @Service
@@ -20,6 +21,10 @@ public class ProjetoService {
 
 	public List<Projeto> listar() {
 		return repository.findAll();
+	}
+	
+	public List<Projeto> listarPorUsuario(Usuario usuario) {
+		return repository.findAllByDono(usuario);
 	}
 
 	public void gravar(Projeto projeto) {

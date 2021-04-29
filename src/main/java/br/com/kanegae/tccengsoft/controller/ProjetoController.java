@@ -3,6 +3,8 @@ package br.com.kanegae.tccengsoft.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.kanegae.tccengsoft.model.Projeto;
+import br.com.kanegae.tccengsoft.model.Usuario;
 import br.com.kanegae.tccengsoft.service.ProjetoService;
 
 @Controller
@@ -26,12 +29,17 @@ public class ProjetoController {
 	public ProjetoController(ProjetoService service) {
 		this.service = service;
 	}
+	
+	private Usuario getUsuarioAutenticado() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return (Usuario) authentication.getPrincipal();
+	}
 
 	@GetMapping
 	public ModelAndView listar(Model model) {
 		ModelAndView modelAndView = new ModelAndView("projeto/lista");
 
-		List<Projeto> projetos = service.listar();
+		List<Projeto> projetos = service.listarPorUsuario(getUsuarioAutenticado());
 		model.addAttribute("projetos", projetos);
 
 		return modelAndView;
@@ -48,6 +56,7 @@ public class ProjetoController {
 
 	@PostMapping
 	public ModelAndView gravar(@ModelAttribute("projeto") Projeto projeto) {
+		projeto.setDono(getUsuarioAutenticado());
 		service.gravar(projeto);
 
 		// TODO verificar redirect
