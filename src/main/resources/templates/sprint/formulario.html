@@ -38,12 +38,24 @@
 			
 			<fieldset>
 				<label for="dataInicial" class="form-label">Data Inicial</label>
-				<input type="date" th:field="*{dataInicial}" id="dataInicial" class="form-control" placeholder="Data Inicial" />
+				<input type="date" th:field="*{dataInicial}" id="dataInicial" class="form-control" />
 			</fieldset>
 			
 			<fieldset>
 				<label for="dataFinal" class="form-label">Data Final</label>
-				<input type="date" th:field="*{dataFinal}" id="dataFinal" class="form-control" placeholder="Data Final" />
+				<input type="date" th:field="*{dataFinal}" id="dataFinal" class="form-control" />
+			</fieldset>
+			
+			<fieldset>
+				<label for="projeto" class="form-label">Projeto</label>
+				<select th:field="*{projeto}" id="projeto" class="form-select">
+				    <option
+				    	th:each="projeto : ${projetos}" 
+				        th:value="${projeto.codigo}"
+				        th:text="${projeto.nome}"
+				        th:selected="${projeto == sprint.projeto}">
+			        </option>
+				</select>
 			</fieldset>
 			
 			<br/>

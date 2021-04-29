@@ -59,6 +59,9 @@ public class SprintController {
 		
 		model.addAttribute("sprint", new Sprint());
 		
+		List<Projeto> projetos = service.listarProjetosDoUsuario(getUsuarioAutenticado());
+		model.addAttribute("projetos", projetos);
+		
 		return modelAndView;
 	}
 
@@ -74,6 +77,9 @@ public class SprintController {
 	@GetMapping("/{codigo}")
 	public ModelAndView exibir(@PathVariable("codigo") Long codigo, Model model) {
 		ModelAndView modelAndView = new ModelAndView("sprint/formulario");
+		
+		List<Projeto> projetos = service.listarProjetosDoUsuario(getUsuarioAutenticado());
+		model.addAttribute("projetos", projetos);
 		
 		Sprint sprint = service.findById(codigo);
 		

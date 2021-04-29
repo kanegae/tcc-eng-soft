@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Sprint {
 	@Id
@@ -19,7 +21,9 @@ public class Sprint {
 	private Long codigo;
 	private String objetivo;
 	private String descricao;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Calendar dataInicial;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Calendar dataFinal;
 	@ManyToOne
 	@JoinColumn(name = "projeto_codigo", referencedColumnName = "codigo", nullable = false)
