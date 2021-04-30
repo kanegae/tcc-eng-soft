@@ -28,7 +28,7 @@
 				    <option 
 				    	th:each="projeto : ${projetos}"
 				    	th:value="${projeto.codigo}"
-				    	th:text="${projeto.nome}" 
+				    	th:text="${projeto.titulo}" 
 						th:selected="${projeto.codigo} == *{projetoSelecionado}">
 					</option>
 				</select>
@@ -47,12 +47,13 @@
 		            <th> Descrição </th>
 		            <th> Data Inicial </th>
 		            <th> Data Final </th>
+		            <th> Projeto </th>
 		            <th colspan="2"> Ações </th>
 		        </tr>
 		    </thead>
 		    <tbody>
 				<tr th:if="${sprints.empty}">
-		            <td colspan="7"> Ainda não existem sprints cadastradas. </td>
+		            <td colspan="8"> Ainda não existem sprints cadastradas. </td>
 		        </tr>
 		        <tr th:each="sprint : ${sprints}">
 		            <td><span th:text="${sprint.codigo}"> Código </span></td>
@@ -60,6 +61,7 @@
 		            <td><span th:text="${sprint.descricao}"> Descrição </span></td>
 		            <td><span th:text="${#dates.format(sprint.dataInicial, 'dd/MM/yyyy')}"> Data Inicial </span></td>
 		            <td><span th:text="${#dates.format(sprint.dataFinal, 'dd/MM/yyyy')}"> Data Final </span></td>
+		            <td><span th:text="${sprint.projeto.titulo}"> Projeto </span></td>
 		            <td>
 		            	<a class="btn btn-success" th:href="@{/sprint/{id}(id=${sprint.codigo})}"> Editar </a>
 	            	</td>

@@ -64,7 +64,7 @@
 				    <option
 				    	th:each="projeto : ${projetos}" 
 				        th:value="${projeto.codigo}"
-				        th:text="${projeto.nome}"
+				        th:text="${projeto.titulo}"
 				        th:selected="${projeto == tarefa.projeto}">
 			        </option>
 				</select>

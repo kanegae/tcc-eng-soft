@@ -28,7 +28,7 @@
 		    <thead>
 		        <tr>
 		            <th> Código </th>
-		            <th> Nome </th>
+		            <th> Título </th>
 		            <th> Descrição </th>
 		            <th colspan="2"> Ações </th>
 		        </tr>
@@ -39,8 +39,8 @@
 		        </tr>
 		        <tr th:each="projeto : ${projetos}">
 		            <td><span th:text="${projeto.codigo}"> Código </span></td>
-		            <td><span th:text="${projeto.nome}"> Nome </span></td>
-		            <td><span th:text="${projeto.descricao}"> Email </span></td>
+		            <td><span th:text="${projeto.titulo}"> Título </span></td>
+		            <td><span th:text="${projeto.descricao}"> E-mail </span></td>
 		            <td>
 		            	<a class="btn btn-success" th:href="@{/projeto/{id}(id=${projeto.codigo})}"> Editar </a>
 	            	</td>
