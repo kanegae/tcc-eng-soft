@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.kanegae.tccengsoft.model.Projeto;
+import br.com.kanegae.tccengsoft.model.Sprint;
 import br.com.kanegae.tccengsoft.model.Tarefa;
 import br.com.kanegae.tccengsoft.model.Usuario;
 import br.com.kanegae.tccengsoft.service.TarefaService;
@@ -62,6 +63,9 @@ public class TarefaController {
 		List<Projeto> projetos = service.listarProjetosDoUsuario(getUsuarioAutenticado());
 		model.addAttribute("projetos", projetos);
 		
+		List<Sprint> sprints = service.listarSprintsDoUsuario(getUsuarioAutenticado());
+		model.addAttribute("sprints", sprints);
+		
 		return modelAndView;
 	}
 
@@ -80,6 +84,9 @@ public class TarefaController {
 		
 		List<Projeto> projetos = service.listarProjetosDoUsuario(getUsuarioAutenticado());
 		model.addAttribute("projetos", projetos);
+		
+		List<Sprint> sprints = service.listarSprintsDoUsuario(getUsuarioAutenticado());
+		model.addAttribute("sprints", sprints);
 		
 		Tarefa tarefa = service.findById(codigo);
 		

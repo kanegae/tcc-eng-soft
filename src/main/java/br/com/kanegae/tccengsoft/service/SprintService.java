@@ -8,19 +8,23 @@ import org.springframework.stereotype.Service;
 
 import br.com.kanegae.tccengsoft.model.Projeto;
 import br.com.kanegae.tccengsoft.model.Sprint;
+import br.com.kanegae.tccengsoft.model.Tarefa;
 import br.com.kanegae.tccengsoft.model.Usuario;
 import br.com.kanegae.tccengsoft.repository.ProjetoRepository;
 import br.com.kanegae.tccengsoft.repository.SprintRepository;
+import br.com.kanegae.tccengsoft.repository.TarefaRepository;
 
 @Service
 public class SprintService {
 	private SprintRepository sprintRepository;
 	private ProjetoRepository projetoRepository;
+	private TarefaRepository tarefaRepository;
 
 	@Autowired
-	public SprintService(SprintRepository sprintRepository, ProjetoRepository projetoRepository) {
+	public SprintService(SprintRepository sprintRepository, ProjetoRepository projetoRepository, TarefaRepository tarefaRepository) {
 		this.sprintRepository = sprintRepository;
 		this.projetoRepository = projetoRepository;
+		this.tarefaRepository = tarefaRepository;
 	}
 
 	public List<Sprint> listar() {
@@ -32,6 +36,14 @@ public class SprintService {
 			return sprintRepository.findAllByProjetoCodigo(projetoSelecionado);
 		} else {
 			return sprintRepository.findAllByProjetoDono(usuarioAutenticado);
+		}
+	}
+	
+	public List<Tarefa> listarTarefasDaSprint(Long projetoSelecionado, Long sprintSelecionada) {
+		if(projetoSelecionado != 0) {
+			return tarefaRepository.findAllBySprintCodigoAndProjetoCodigo(sprintSelecionada, projetoSelecionado);
+		} else {
+			return tarefaRepository.findAllBySprintCodigo(sprintSelecionada);
 		}
 	}
 	

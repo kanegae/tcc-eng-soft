@@ -70,6 +70,19 @@
 				</select>
 			</fieldset>
 			
+			<fieldset>
+				<label for="sprint" class="form-label">Sprint</label>
+				<select th:field="*{sprint}" id="sprint" class="form-select">
+					<option value="0"></option>
+				    <option
+				    	th:each="sprint : ${sprints}" 
+				        th:value="${sprint.codigo}"
+				        th:text="${sprint.objetivo}"
+				        th:selected="${sprint == tarefa.sprint}">
+			        </option>
+				</select>
+			</fieldset>
+			
 			<br/>
 			
 			<button type="submit" class="btn btn-primary">Salvar</button>

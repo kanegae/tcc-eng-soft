@@ -7,20 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.kanegae.tccengsoft.model.Projeto;
+import br.com.kanegae.tccengsoft.model.Sprint;
 import br.com.kanegae.tccengsoft.model.Tarefa;
 import br.com.kanegae.tccengsoft.model.Usuario;
 import br.com.kanegae.tccengsoft.repository.ProjetoRepository;
+import br.com.kanegae.tccengsoft.repository.SprintRepository;
 import br.com.kanegae.tccengsoft.repository.TarefaRepository;
 
 @Service
 public class TarefaService {
 	private TarefaRepository tarefaRepository;
 	private ProjetoRepository projetoRepository;
+	private SprintRepository sprintRepository;
 
 	@Autowired
-	public TarefaService(TarefaRepository tarefaRepository, ProjetoRepository projetoRepository) {
+	public TarefaService(TarefaRepository tarefaRepository, ProjetoRepository projetoRepository, SprintRepository sprintRepository) {
 		this.tarefaRepository = tarefaRepository;
 		this.projetoRepository = projetoRepository;
+		this.sprintRepository = sprintRepository;
 	}
 	
 	public List<Tarefa> listar() {
@@ -37,6 +41,10 @@ public class TarefaService {
 	
 	public List<Projeto> listarProjetosDoUsuario(Usuario usuarioAutenticado) {
 		return projetoRepository.findAllByDono(usuarioAutenticado);
+	}
+	
+	public List<Sprint> listarSprintsDoUsuario(Usuario usuarioAutenticado) {
+		return sprintRepository.findAllByProjetoDono(usuarioAutenticado);
 	}
 
 	public void gravar(Tarefa tarefa) {

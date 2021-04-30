@@ -15,4 +15,8 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Long> {
 	
 	public List<Tarefa> findAllByProjetoCodigo(Long codigo);
 	
+	public List<Tarefa> findAllBySprintCodigo(Long codigo);
+	
+	public List<Tarefa> findAllBySprintCodigoAndProjetoCodigo(Long codigoDaSprint, Long codigoDoProjeto);
+	
 }

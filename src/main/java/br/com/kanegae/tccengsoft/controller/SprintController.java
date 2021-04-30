@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.kanegae.tccengsoft.model.Projeto;
 import br.com.kanegae.tccengsoft.model.Sprint;
+import br.com.kanegae.tccengsoft.model.Tarefa;
 import br.com.kanegae.tccengsoft.model.Usuario;
 import br.com.kanegae.tccengsoft.service.SprintService;
 
@@ -86,6 +87,25 @@ public class SprintController {
 		model.addAttribute("sprint", sprint);
 		
 		modelAndView.addObject("sprint", sprint);
+		return modelAndView;
+	}
+	
+	@GetMapping("/{codigo}/tarefas")
+	public ModelAndView listarTarefas(@PathVariable("codigo") Long codigo, @RequestParam(name = "projeto", defaultValue = "0", required = false) String projeto, Model model) {
+		ModelAndView modelAndView = new ModelAndView("sprint/tarefas");
+		
+		Long projetoSelecionado = Long.parseLong(projeto);
+		model.addAttribute("projetoSelecionado", projetoSelecionado);
+		
+		Sprint sprint = service.findById(codigo);
+		model.addAttribute("sprint", sprint);
+		
+		List<Tarefa> tarefas = service.listarTarefasDaSprint(projetoSelecionado, codigo);
+		model.addAttribute("tarefas", tarefas);
+		
+		List<Projeto> projetos = service.listarProjetosDoUsuario(getUsuarioAutenticado());
+		model.addAttribute("projetos", projetos);
+
 		return modelAndView;
 	}
 	

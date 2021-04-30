@@ -48,12 +48,13 @@
 		            <th> Prioridade </th>
 		            <th> Status </th>
 		            <th> Projeto </th>
+		            <th> Sprint </th>
 		            <th colspan="2"> Ações </th>
 		        </tr>
 		    </thead>
 		    <tbody>
 				<tr th:if="${tarefas.empty}">
-		            <td colspan="8"> Ainda não existem tarefas cadastradas. </td>
+		            <td colspan="9"> Ainda não existem tarefas cadastradas. </td>
 		        </tr>
 		        <tr th:each="tarefa : ${tarefas}">
 		            <td><span th:text="${tarefa.codigo}"> Código </span></td>
@@ -62,6 +63,7 @@
 		            <td><span th:text="${tarefa.prioridade.displayValue}"> Prioridade </span></td>
 		            <td><span th:text="${tarefa.status.displayValue}"> Status </span></td>
 		            <td><span th:text="${tarefa.projeto.titulo}"> Projeto </span></td>
+		            <td><span th:text="${tarefa.sprint?.objetivo}"> Sprint </span></td>
 		            <td>
 		            	<a class="btn btn-success" th:href="@{/tarefa/{id}(id=${tarefa.codigo})}"> Editar </a>
 	            	</td>
