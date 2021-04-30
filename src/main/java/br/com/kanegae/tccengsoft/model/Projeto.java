@@ -38,7 +38,7 @@ public class Projeto {
 		return titulo;
 	}
 
-	public void setNTitulo(String titulo) {
+	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
 
