@@ -1,5 +1,6 @@
 package br.com.kanegae.tccengsoft.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.kanegae.tccengsoft.model.Projeto;
 import br.com.kanegae.tccengsoft.model.Sprint;
+import br.com.kanegae.tccengsoft.model.Status;
 import br.com.kanegae.tccengsoft.model.Tarefa;
 import br.com.kanegae.tccengsoft.model.Usuario;
 import br.com.kanegae.tccengsoft.service.SprintService;
@@ -105,8 +107,67 @@ public class SprintController {
 		
 		List<Projeto> projetos = service.listarProjetosDoUsuario(getUsuarioAutenticado());
 		model.addAttribute("projetos", projetos);
+		
+		Calendar dataInicial = sprint.getDataInicial();
+		Calendar dataFinal = sprint.getDataFinal();
+		Calendar dataAtual = Calendar.getInstance();
+		
+		// somente sprints com datas definidas
+		if(dataInicial != null && dataFinal != null) {
+		
+			int diasTotal = getDiferencaEmDias(dataInicial, dataFinal);
+			model.addAttribute("diasTotal", diasTotal);
+			
+			// sprint em andamento
+			int diasPassados = getDiferencaEmDias(dataInicial, dataAtual);
+			// sprint encerrada
+			if(dataAtual.getTime().after(dataFinal.getTime())) {
+				diasPassados = diasTotal;
+			}
+			// sprint não iniciada
+			if(dataAtual.getTime().before(dataInicial.getTime())) {
+				diasPassados = 0;
+			}
+			model.addAttribute("diasPassados", diasPassados);
+			
+			int diasPassadosPorcentagem = (int) (((float)diasPassados/diasTotal)*100);
+			model.addAttribute("diasPassadosPorcentagem", diasPassadosPorcentagem);
+			
+			int tarefasTotal = tarefas.size();
+			model.addAttribute("tarefasTotal", tarefasTotal);
+			
+			int tarefasConcluidas = (int) tarefas.stream()
+		        .filter(tarefa -> (tarefa.getStatus() == Status.CONCLUIDO))
+		        .count();
+			model.addAttribute("tarefasConcluidas", tarefasConcluidas);
+			
+			int tarefasConcluidasPorcentagem = (int) (((float)tarefasConcluidas/tarefasTotal)*100);
+			// sprint com nenhuma tarefa
+			if(tarefas.size() == 0) {
+				tarefasConcluidasPorcentagem = 100;
+			}
+			model.addAttribute("tarefasConcluidasPorcentagem", tarefasConcluidasPorcentagem);
+		
+		} else {
+			
+			model.addAttribute("diasTotal", "0");
+			model.addAttribute("diasPassados", "0");
+			model.addAttribute("diasPassadosPorcentagem", "0");
+			
+			model.addAttribute("tarefasTotal", "0");
+			model.addAttribute("tarefasConcluidas", "0");
+			model.addAttribute("tarefasConcluidasPorcentagem", "0");
+			
+		}
 
 		return modelAndView;
+	}
+	
+	public int getDiferencaEmDias(Calendar dataInicial, Calendar dataFinal) {
+		long duracao = (dataFinal.getTime().getTime() - dataInicial.getTime().getTime()) + 3600000;      
+		int dias = (int) (duracao / 86400000L);
+		
+		return dias;
 	}
 	
 	// TODO revisar método: requisições DELETE não funcionam via HTML

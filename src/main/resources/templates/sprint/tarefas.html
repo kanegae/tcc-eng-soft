@@ -20,6 +20,39 @@
 	       	<h2>Sprint: <span th:text="${sprint.objetivo}"> Objetivo da Sprint </span></h2>
 	   	</div>
 	   	
+	   	<div class="alert alert-info" role="alert">
+	   		<h3 class="h4 alert-heading">Estatísticas</h3>
+	   		<p>
+	   			<strong>Período:</strong> <span th:if="${sprint.dataInicial != null}" th:text="${#dates.format(sprint.dataInicial, 'dd/MM/yyyy')}">dd/MM/yyyy</span> <span th:if="${sprint.dataInicial == null}">??/??/????</span> a <span th:if="${sprint.dataFinal != null}" th:text="${#dates.format(sprint.dataFinal, 'dd/MM/yyyy')}">dd/MM/yyyy</span> <span th:if="${sprint.dataFinal == null}">??/??/????</span>
+	   		</p>
+			<p>
+				<strong>Tempo Decorrido:</strong> <span th:text="${diasPassados}">#</span> de <span th:text="${diasTotal}">#</span> dias
+				<div class="progress" style="height: 25px;">
+					<div class="progress-bar progress-bar-striped"
+						 role="progressbar"
+						 style="width: 10%"
+						 aria-valuenow="10"
+						 aria-valuemin="0"
+						 aria-valuemax="100">
+						<span th:text="${diasPassadosPorcentagem + '%'}">#%</span>
+					</div>
+				</div>
+			</p>
+			<p>
+				<strong>Tarefas Concluídas:</strong> <span th:text="${tarefasConcluidas}">#</span> de <span th:text="${tarefasTotal}">#</span> tarefas
+				<div class="progress" style="height: 25px;">
+					<div class="progress-bar progress-bar-striped"
+						 role="progressbar"
+						 style="width: 10%"
+						 aria-valuenow="10"
+						 aria-valuemin="0"
+						 aria-valuemax="100">
+						<span th:text="${tarefasConcluidasPorcentagem + '%'}">#%</span>
+					</div>
+				</div>
+			</p>
+		</div>
+	   	
 	   	<div class="float-end d-inline-flex align-items-center">
 	   		<fieldset class="d-inline-flex align-items-center px-1">
 		   		<label for="projetos" class="control-label px-1">Projeto:</label>
@@ -53,7 +86,7 @@
 		    </thead>
 		    <tbody>
 				<tr th:if="${tarefas.empty}">
-		            <td colspan="8"> Ainda não existem tarefas cadastradas. </td>
+		            <td colspan="8"> Ainda não existem tarefas associadas a esta sprint. </td>
 		        </tr>
 		        <tr th:each="tarefa : ${tarefas}">
 		            <td><span th:text="${tarefa.codigo}"> Código </span></td>
