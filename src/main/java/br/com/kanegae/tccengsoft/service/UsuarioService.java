@@ -40,7 +40,6 @@ public class UsuarioService implements UserDetailsService {
 		repository.deleteById(codigo);
 	}
 	
-	// TODO verificar Optional
 	public Usuario findById(Long codigo) {
 		Optional<Usuario> usuario = repository.findById(codigo);
 		return usuario.get();

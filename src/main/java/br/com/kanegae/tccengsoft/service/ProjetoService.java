@@ -35,7 +35,6 @@ public class ProjetoService {
 		repository.deleteById(codigo);
 	}
 	
-	// TODO verificar Optional
 	public Projeto findById(Long codigo) {
 		Optional<Projeto> projeto = repository.findById(codigo);
 		return projeto.get();

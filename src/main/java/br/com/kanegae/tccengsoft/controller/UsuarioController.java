@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,8 +57,7 @@ public class UsuarioController {
 	@PostMapping
 	public ModelAndView gravar(@ModelAttribute("usuario") Usuario usuario) {
 		service.gravar(usuario);
-
-		// TODO verificar redirect
+		
 		ModelAndView modelAndView = new ModelAndView("redirect:usuario");
 		return modelAndView;
 	}
@@ -67,8 +65,7 @@ public class UsuarioController {
 	@PostMapping("/cadastrar")
 	public ModelAndView cadastrar(@ModelAttribute("usuario") Usuario usuario) {
 		service.gravar(usuario);
-
-		// TODO verificar redirect
+		
 		ModelAndView modelAndView = new ModelAndView("redirect:/login");
 		return modelAndView;
 	}
@@ -85,22 +82,10 @@ public class UsuarioController {
 		return modelAndView;
 	}
 	
-	// TODO revisar método: requisições DELETE não funcionam via HTML
-	@DeleteMapping("/{codigo}")
-	public ModelAndView excluirOLD(@PathVariable("codigo") Long codigo) {
-		service.excluir(codigo);
-
-		// TODO verificar redirect
-		ModelAndView modelAndView = new ModelAndView("redirect:/usuario");
-		return modelAndView;
-	}
-	
-	// TODO revisar método
 	@PostMapping("/{codigo}/excluir")
 	public ModelAndView excluir(@PathVariable("codigo") Long codigo) {
 		service.excluir(codigo);
-
-		// TODO verificar redirect
+		
 		ModelAndView modelAndView = new ModelAndView("redirect:/usuario");
 		return modelAndView;
 	}

@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -72,8 +71,7 @@ public class TarefaController {
 	@PostMapping
 	public ModelAndView gravar(@ModelAttribute("tarefa") Tarefa tarefa) {
 		service.gravar(tarefa);
-
-		// TODO verificar redirect
+		
 		ModelAndView modelAndView = new ModelAndView("redirect:tarefa");
 		return modelAndView;
 	}
@@ -96,22 +94,10 @@ public class TarefaController {
 		return modelAndView;
 	}
 	
-	// TODO revisar método: requisições DELETE não funcionam via HTML
-	@DeleteMapping("/{codigo}")
-	public ModelAndView excluirOLD(@PathVariable("codigo") Long codigo) {
-		service.excluir(codigo);
-
-		// TODO verificar redirect
-		ModelAndView modelAndView = new ModelAndView("redirect:/tarefa");
-		return modelAndView;
-	}
-	
-	// TODO revisar método
 	@PostMapping("/{codigo}/excluir")
 	public ModelAndView excluir(@PathVariable("codigo") Long codigo) {
 		service.excluir(codigo);
-
-		// TODO verificar redirect
+		
 		ModelAndView modelAndView = new ModelAndView("redirect:/tarefa");
 		return modelAndView;
 	}

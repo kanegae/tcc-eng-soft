@@ -59,7 +59,6 @@ public class SprintService {
 		sprintRepository.deleteById(codigo);
 	}
 	
-	// TODO verificar Optional
 	public Sprint findById(Long codigo) {
 		Optional<Sprint> sprint = sprintRepository.findById(codigo);
 		return sprint.get();

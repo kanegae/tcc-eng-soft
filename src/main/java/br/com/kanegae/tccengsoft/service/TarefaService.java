@@ -55,7 +55,6 @@ public class TarefaService {
 		tarefaRepository.deleteById(codigo);
 	}
 	
-	// TODO verificar Optional
 	public Tarefa findById(Long codigo) {
 		Optional<Tarefa> tarefa = tarefaRepository.findById(codigo);
 		return tarefa.get();
