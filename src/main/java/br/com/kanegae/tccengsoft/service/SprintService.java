@@ -31,12 +31,8 @@ public class SprintService {
 		return sprintRepository.findAll();
 	}
 	
-	public List<Sprint> listar(Long projetoSelecionado, Usuario usuarioAutenticado) {
-		if(projetoSelecionado != 0) {
-			return sprintRepository.findAllByProjetoCodigo(projetoSelecionado);
-		} else {
-			return sprintRepository.findAllByProjetoDono(usuarioAutenticado);
-		}
+	public List<Sprint> listar(Usuario usuarioAutenticado) {
+		return sprintRepository.findAllByDono(usuarioAutenticado);
 	}
 	
 	public List<Tarefa> listarTarefasDaSprint(Long projetoSelecionado, Long sprintSelecionada) {

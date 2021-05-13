@@ -26,8 +26,8 @@ public class Sprint {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Calendar dataFinal;
 	@ManyToOne
-	@JoinColumn(name = "projeto_codigo", referencedColumnName = "codigo", nullable = false)
-	private Projeto projeto;
+	@JoinColumn(name = "usuario_codigo", referencedColumnName = "codigo", nullable = false)
+	private Usuario dono;
 	@OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL)
 	private List<Tarefa> sprintBacklog;
 
@@ -70,13 +70,13 @@ public class Sprint {
 	public void setDataFinal(Calendar dataFinal) {
 		this.dataFinal = dataFinal;
 	}
-
-	public Projeto getProjeto() {
-		return projeto;
+	
+	public Usuario getDono() {
+		return dono;
 	}
 
-	public void setProjeto(Projeto projeto) {
-		this.projeto = projeto;
+	public void setDono(Usuario dono) {
+		this.dono = dono;
 	}
 
 	public List<Tarefa> getSprintBacklog() {

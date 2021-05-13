@@ -46,18 +46,6 @@
 				<input type="date" th:field="*{dataFinal}" id="dataFinal" class="form-control" />
 			</fieldset>
 			
-			<fieldset>
-				<label for="projeto" class="form-label">Projeto</label>
-				<select th:field="*{projeto}" id="projeto" class="form-select">
-				    <option
-				    	th:each="projeto : ${projetos}" 
-				        th:value="${projeto.codigo}"
-				        th:text="${projeto.titulo}"
-				        th:selected="${projeto == sprint.projeto}">
-			        </option>
-				</select>
-			</fieldset>
-			
 			<br/>
 			
 			<button type="submit" class="btn btn-primary">Salvar</button>

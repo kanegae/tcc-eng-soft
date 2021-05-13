@@ -40,17 +40,11 @@ public class SprintController {
 	}
 
 	@GetMapping
-	public ModelAndView listar(Model model, @RequestParam(name = "projeto", defaultValue = "0", required = false) String projeto) {
+	public ModelAndView listar(Model model) {
 		ModelAndView modelAndView = new ModelAndView("sprint/lista");
-
-		Long projetoSelecionado = Long.parseLong(projeto);
-		model.addAttribute("projetoSelecionado", projetoSelecionado);
 		
-		List<Sprint> sprints = service.listar(projetoSelecionado, getUsuarioAutenticado());
+		List<Sprint> sprints = service.listar(getUsuarioAutenticado());
 		model.addAttribute("sprints", sprints);
-		
-		List<Projeto> projetos = service.listarProjetosDoUsuario(getUsuarioAutenticado());
-		model.addAttribute("projetos", projetos);
 
 		return modelAndView;
 	}
@@ -61,14 +55,12 @@ public class SprintController {
 		
 		model.addAttribute("sprint", new Sprint());
 		
-		List<Projeto> projetos = service.listarProjetosDoUsuario(getUsuarioAutenticado());
-		model.addAttribute("projetos", projetos);
-		
 		return modelAndView;
 	}
 
 	@PostMapping
 	public ModelAndView gravar(@ModelAttribute("sprint") Sprint sprint) {
+		sprint.setDono(getUsuarioAutenticado());
 		service.gravar(sprint);
 
 		ModelAndView modelAndView = new ModelAndView("redirect:sprint");
@@ -130,21 +122,6 @@ public class SprintController {
 			
 			int diasPassadosPorcentagem = (int) (((float)diasPassados/diasTotal)*100);
 			model.addAttribute("diasPassadosPorcentagem", diasPassadosPorcentagem);
-			
-			int tarefasTotal = tarefas.size();
-			model.addAttribute("tarefasTotal", tarefasTotal);
-			
-			int tarefasConcluidas = (int) tarefas.stream()
-		        .filter(tarefa -> (tarefa.getStatus() == Status.CONCLUIDO))
-		        .count();
-			model.addAttribute("tarefasConcluidas", tarefasConcluidas);
-			
-			int tarefasConcluidasPorcentagem = (int) (((float)tarefasConcluidas/tarefasTotal)*100);
-			// sprint com nenhuma tarefa
-			if(tarefas.size() == 0) {
-				tarefasConcluidasPorcentagem = 100;
-			}
-			model.addAttribute("tarefasConcluidasPorcentagem", tarefasConcluidasPorcentagem);
 		
 		} else {
 			
@@ -152,11 +129,22 @@ public class SprintController {
 			model.addAttribute("diasPassados", "0");
 			model.addAttribute("diasPassadosPorcentagem", "0");
 			
-			model.addAttribute("tarefasTotal", "0");
-			model.addAttribute("tarefasConcluidas", "0");
-			model.addAttribute("tarefasConcluidasPorcentagem", "0");
-			
 		}
+		
+		int tarefasTotal = tarefas.size();
+		model.addAttribute("tarefasTotal", tarefasTotal);
+		
+		int tarefasConcluidas = (int) tarefas.stream()
+	        .filter(tarefa -> (tarefa.getStatus() == Status.CONCLUIDO))
+	        .count();
+		model.addAttribute("tarefasConcluidas", tarefasConcluidas);
+		
+		int tarefasConcluidasPorcentagem = (int) (((float)tarefasConcluidas/tarefasTotal)*100);
+		// sprint com nenhuma tarefa
+		if(tarefas.size() == 0) {
+			tarefasConcluidasPorcentagem = 100;
+		}
+		model.addAttribute("tarefasConcluidasPorcentagem", tarefasConcluidasPorcentagem);
 
 		return modelAndView;
 	}

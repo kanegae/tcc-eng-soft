@@ -44,7 +44,7 @@ public class TarefaService {
 	}
 	
 	public List<Sprint> listarSprintsDoUsuario(Usuario usuarioAutenticado) {
-		return sprintRepository.findAllByProjetoDono(usuarioAutenticado);
+		return sprintRepository.findAllByDono(usuarioAutenticado);
 	}
 
 	public void gravar(Tarefa tarefa) {

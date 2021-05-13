@@ -11,8 +11,6 @@ import br.com.kanegae.tccengsoft.model.Usuario;
 @Repository
 public interface SprintRepository extends JpaRepository<Sprint, Long> {
 
-	public List<Sprint> findAllByProjetoDono(Usuario usuario);
-	
-	public List<Sprint> findAllByProjetoCodigo(Long codigo);
+	public List<Sprint> findAllByDono(Usuario usuario);
 	
 }

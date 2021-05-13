@@ -28,6 +28,8 @@ public class Usuario implements UserDetails {
 	private String senha;
 	@OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
 	private List<Projeto> projetos;
+	@OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
+	private List<Sprint> sprints;
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Papel> papeis = new ArrayList<Papel>();
 

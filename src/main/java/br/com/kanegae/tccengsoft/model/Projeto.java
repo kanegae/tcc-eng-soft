@@ -23,8 +23,6 @@ public class Projeto {
 	private Usuario dono;
 	@OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL)
 	private List<Tarefa> productBacklog;
-	@OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL)
-	private List<Sprint> sprints;
 
 	public Long getCodigo() {
 		return codigo;
@@ -64,13 +62,5 @@ public class Projeto {
 
 	public void setProductBacklog(List<Tarefa> productBacklog) {
 		this.productBacklog = productBacklog;
-	}
-
-	public List<Sprint> getSprints() {
-		return sprints;
-	}
-
-	public void setSprints(List<Sprint> sprints) {
-		this.sprints = sprints;
 	}
 }
