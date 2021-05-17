@@ -26,10 +26,6 @@ public class SprintService {
 		this.projetoRepository = projetoRepository;
 		this.tarefaRepository = tarefaRepository;
 	}
-
-	public List<Sprint> listar() {
-		return sprintRepository.findAll();
-	}
 	
 	public List<Sprint> listar(Usuario usuarioAutenticado) {
 		return sprintRepository.findAllByDono(usuarioAutenticado);
@@ -58,5 +54,22 @@ public class SprintService {
 	public Sprint findById(Long codigo) {
 		Optional<Sprint> sprint = sprintRepository.findById(codigo);
 		return sprint.get();
+	}
+	
+	public Tarefa findTarefaById(Long codigo) {
+		Optional<Tarefa> tarefa = tarefaRepository.findById(codigo);
+		return tarefa.get();
+	}
+	
+	public void gravarTarefa(Tarefa tarefa) {
+		tarefaRepository.save(tarefa);
+	}
+	
+	public void excluirTarefa(Tarefa tarefa) {
+		tarefaRepository.delete(tarefa);
+	}
+	
+	public List<Sprint> listarSprintsDoUsuario(Usuario usuarioAutenticado) {
+		return sprintRepository.findAllByDono(usuarioAutenticado);
 	}
 }

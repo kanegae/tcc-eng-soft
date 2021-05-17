@@ -26,10 +26,6 @@ public class TarefaService {
 		this.projetoRepository = projetoRepository;
 		this.sprintRepository = sprintRepository;
 	}
-	
-	public List<Tarefa> listar() {
-		return tarefaRepository.findAll();
-	}
 
 	public List<Tarefa> listar(Long projetoSelecionado, Usuario usuarioAutenticado) {
 		if(projetoSelecionado != 0) {

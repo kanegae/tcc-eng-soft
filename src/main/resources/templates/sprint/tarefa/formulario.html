@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>Skrum</title>
+  </head>
+  <body>
+  	
+	<div th:replace="/cabecalho.html">...</div>
+    
+    <main class="container">
+    
+	    <div style="margin-top: 20px; margin-bottom: 30px">
+	       	<h2>Tarefa</h2>
+	   	</div>
+	    
+	    <form th:action="@{/sprint/tarefa}" th:object="${tarefa}" method="POST">
+			<fieldset>
+				<label for="codigo" class="form-label">Código</label>
+				<input type="text" readonly="readonly" th:field="*{codigo}" id="codigo" class="form-control" placeholder="0" />
+			</fieldset>
+			
+			<fieldset>
+				<label for="titulo" class="form-label">Título</label>
+				<input type="text" th:field="*{titulo}" id="titulo" class="form-control" placeholder="Título" />
+			</fieldset>
+			
+			<fieldset>
+				<label for="descricao" class="form-label">Descrição</label>
+				<input type="text" th:field="*{descricao}" id="descricao" class="form-control" placeholder="Descrição" />
+			</fieldset>
+			
+			<fieldset>
+				<label for="prioridade" class="form-label">Prioridade</label>
+				<select th:field="*{prioridade}" id="prioridade" class="form-select">
+				    <option
+				    	th:each="prioridadeOpt : ${T(br.com.kanegae.tccengsoft.model.Prioridade).values()}" 
+				        th:value="${prioridadeOpt}"
+				        th:text="${prioridadeOpt.displayValue}">
+			        </option>
+				</select>
+			</fieldset>
+			
+			<fieldset>
+				<label for="status" class="form-label">Status</label>
+				<select th:field="*{status}" id="status" class="form-select">
+				    <option
+				    	th:each="statusOpt : ${T(br.com.kanegae.tccengsoft.model.Status).values()}" 
+				        th:value="${statusOpt}"
+				        th:text="${statusOpt.displayValue}">
+			        </option>
+				</select>
+			</fieldset>
+			
+			<fieldset>
+				<label for="projeto" class="form-label">Projeto</label>
+				<select th:field="*{projeto}" id="projeto" class="form-select">
+				    <option
+				    	th:each="projeto : ${projetos}" 
+				        th:value="${projeto.codigo}"
+				        th:text="${projeto.titulo}"
+				        th:selected="${projeto == tarefa.projeto}">
+			        </option>
+				</select>
+			</fieldset>
+			
+			<fieldset>
+				<label for="sprint" class="form-label">Sprint</label>
+				<select th:field="*{sprint}" id="sprint" class="form-select">
+					<option value="0"></option>
+				    <option
+				    	th:each="sprint : ${sprints}" 
+				        th:value="${sprint.codigo}"
+				        th:text="${sprint.objetivo}"
+				        th:selected="${sprint == tarefa.sprint}">
+			        </option>
+				</select>
+			</fieldset>
+			
+			<br/>
+			
+			<button type="submit" class="btn btn-primary">Salvar</button>
+			<a class="btn btn-secondary" href="../tarefa" role="button">Cancelar</a>
+		</form>
+	
+	</main>
+	
+	<div th:replace="/rodape.html">...</div>
+		
+  </body>
+</html>

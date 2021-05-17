@@ -18,10 +18,6 @@ public class ProjetoService {
 	public ProjetoService(ProjetoRepository repository) {
 		this.repository = repository;
 	}
-
-	public List<Projeto> listar() {
-		return repository.findAll();
-	}
 	
 	public List<Projeto> listarPorUsuario(Usuario usuario) {
 		return repository.findAllByDono(usuario);

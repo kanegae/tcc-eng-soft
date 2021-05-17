@@ -86,10 +86,10 @@
 		            <td><span th:text="${tarefa.status.displayValue}"> Status </span></td>
 		            <td><span th:text="${tarefa.projeto.titulo}"> Projeto </span></td>
 		            <td>
-		            	<a class="btn btn-success" th:href="@{/tarefa/{id}(id=${tarefa.codigo})}"> Editar </a>
+		            	<a class="btn btn-success" th:href="@{tarefa/{id}(id=${tarefa.codigo})}"> Editar </a>
 	            	</td>
 		            <td>
-		            	<form method="POST" th:action="@{/tarefa/{id}/excluir(id=${tarefa.codigo})}">
+		            	<form method="POST" th:action="@{/sprint/tarefa/{id}/excluir(id=${tarefa.codigo})}">
 	            			<button type="submit" class="btn btn-danger"> Excluir </button>
 	            		</form>
 	            	</td>

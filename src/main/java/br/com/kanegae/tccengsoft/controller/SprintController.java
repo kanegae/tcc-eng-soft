@@ -82,9 +82,17 @@ public class SprintController {
 		return modelAndView;
 	}
 	
-	@GetMapping("/{codigo}/tarefas")
+	@PostMapping("/{codigo}/excluir")
+	public ModelAndView excluir(@PathVariable("codigo") Long codigo) {
+		service.excluir(codigo);
+		
+		ModelAndView modelAndView = new ModelAndView("redirect:/sprint");
+		return modelAndView;
+	}
+	
+	@GetMapping("/{codigo}/tarefa")
 	public ModelAndView listarTarefas(@PathVariable("codigo") Long codigo, @RequestParam(name = "projeto", defaultValue = "0", required = false) String projeto, Model model) {
-		ModelAndView modelAndView = new ModelAndView("sprint/tarefas");
+		ModelAndView modelAndView = new ModelAndView("sprint/tarefa/lista");
 		
 		Long projetoSelecionado = Long.parseLong(projeto);
 		model.addAttribute("projetoSelecionado", projetoSelecionado);
@@ -149,18 +157,45 @@ public class SprintController {
 		return modelAndView;
 	}
 	
-	public int getDiferencaEmDias(Calendar dataInicial, Calendar dataFinal) {
+	private int getDiferencaEmDias(Calendar dataInicial, Calendar dataFinal) {
 		long duracao = (dataFinal.getTime().getTime() - dataInicial.getTime().getTime()) + 3600000;      
 		int dias = (int) (duracao / 86400000L);
 		
 		return dias;
 	}
 	
-	@PostMapping("/{codigo}/excluir")
-	public ModelAndView excluir(@PathVariable("codigo") Long codigo) {
-		service.excluir(codigo);
+	@GetMapping("/{codigo_sprint}/tarefa/{codigoDaTarefa}")
+	public ModelAndView exibirTarefa(@PathVariable("codigoDaTarefa") Long codigoDaTarefa, Model model) {
+		ModelAndView modelAndView = new ModelAndView("sprint/tarefa/formulario");
 		
-		ModelAndView modelAndView = new ModelAndView("redirect:/sprint");
+		List<Projeto> projetos = service.listarProjetosDoUsuario(getUsuarioAutenticado());
+		model.addAttribute("projetos", projetos);
+		
+		List<Sprint> sprints = service.listarSprintsDoUsuario(getUsuarioAutenticado());
+		model.addAttribute("sprints", sprints);
+		
+		Tarefa tarefa = service.findTarefaById(codigoDaTarefa);
+		
+		model.addAttribute("tarefa", tarefa);
+		
+		modelAndView.addObject("tarefa", tarefa);
+		return modelAndView;
+	}
+	
+	@PostMapping("/tarefa")
+	public ModelAndView editarTarefa(@ModelAttribute("tarefa") Tarefa tarefa) {
+		service.gravarTarefa(tarefa);
+		
+		ModelAndView modelAndView = new ModelAndView("redirect:/sprint/" + tarefa.getSprint().getCodigo() + "/tarefa");
+		return modelAndView;
+	}
+	
+	@PostMapping("/tarefa/{codigo}/excluir")
+	public ModelAndView excluirTarefa(@PathVariable("codigo") Long codigo) {
+		Tarefa tarefa = service.findTarefaById(codigo);
+		service.excluirTarefa(tarefa);
+		
+		ModelAndView modelAndView = new ModelAndView("redirect:/sprint/" + tarefa.getSprint().getCodigo() + "/tarefa");
 		return modelAndView;
 	}
 }
