@@ -76,7 +76,7 @@
 		    </thead>
 		    <tbody>
 				<tr th:if="${tarefas.empty}">
-		            <td colspan="8"> Ainda não existem tarefas associadas a esta sprint. </td>
+		            <td colspan="8"> Ainda não existem tarefas associadas a esta Sprint. </td>
 		        </tr>
 		        <tr th:each="tarefa : ${tarefas}">
 		            <td><span th:text="${tarefa.codigo}"> Código </span></td>
